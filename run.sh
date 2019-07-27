@@ -1,0 +1,2 @@
+cd ~/doutorado_uab/git/spif/playpen/cloud/jonquera
+~/individual-executor/fireSimulator scenario_jonquera.ini run   0   0  7   3    6   54    87  17  267  43  64  1.7 2> /dev/null | grep "adjustmentError" | head -n1 | awk '{print $9}'

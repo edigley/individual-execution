@@ -21,27 +21,22 @@
 double fitnessYError(double * mapaReal, double * mapaSim, int Rows, int Cols, double t1, double t2, double * error);
 double errorXor(double * mapaReal, double * mapaSim, int Rows, int Cols, double t1, double t2, double * error);
 
-double fitnessYError(double * mapaReal, double * mapaSim, int Rows, int Cols, double t1, double t2, double * error)
-{
+double fitnessYError(double * mapaReal, double * mapaSim, int Rows, int Cols, double t1, double t2, double * error) {
     int Cells = Rows * Cols, cell;
     int sumI=0, sumU=0, sumIni=0, sumReal = 0, sumSim=0;
     int a,b;
-    // float alfa=1, beta=2, gamma=1;
 
-    // float alfa, beta, gamma;
     double fit;
 
-
-    for(cell = 0; cell < Cells ; cell ++)
-    {
+    for (cell = 0; cell < Cells ; cell ++) {
         // paso el mapa real a infinity las celdas no quemadas
-        //mapaReal[cell] = (mapaReal[cell] == 0.0)?INFINITY:mapaReal[cell];
-        if(mapaReal[cell] <= -1.0)
+        if (mapaReal[cell] <= -1.0) {
             mapaReal[cell]=INFINITY;
+        }
 
-        if(mapaSim[cell] <= -1.0)
+        if (mapaSim[cell] <= -1.0) {
             mapaSim[cell]=INFINITY;
-
+        }
 
         a = mapaSim[cell] <= t2 ? 1 : 0;
         b = mapaReal[cell] <= t2 ? 1 : 0;
@@ -53,14 +48,14 @@ double fitnessYError(double * mapaReal, double * mapaSim, int Rows, int Cols, do
         sumI += ((a==1) && (b==1)) ? 1 : 0;
         sumU += ((a==1) || (b==1)) ? 1 : 0;
     }
-    //printf("\n>>>> t1:%f\tt2:%f\ta:%d\tb:%d\tsumIni:%d\tsumReal:%d\tsumI:%d\tsumU:%d<<<<\n", t1, t2, a, b, sumIni, sumReal, sumI, sumU);
 
-    if (sumU != sumIni)
+    if (sumU != sumIni) {
         fit = ((float)(sumI - sumIni)) / ((float)(sumU - sumIni));
-    else
+    } else {
         fit = 0.0f;
+    }
 
-    if (sumReal != sumIni)
+    if ( sumReal != sumIni ) {
     //BIAS'
         * error = (((float)(sumU - sumIni)) - ((float)(sumI - sumIni))) / ((float)(sumReal - sumIni));
 
@@ -93,8 +88,9 @@ double fitnessYError(double * mapaReal, double * mapaSim, int Rows, int Cols, do
     //
     // * error = ((((float)(sumI-sumIni))/((float)(sumSim-sumIni)))*(((float)(sumU-sumIni))-((float)(sumReal-sumIni))))+((((float)(sumI-sumIni))/((float)(sumReal-sumIni)))*(((float)(sumU-sumIni))-((float)(sumSim-sumIni))));
     //
-    else
+    } else {
         * error = 9999.0f;
+    }
 
     //   printf("sumU= %d sumI= %d sumIni= %d sumReal=%d  fitness:%f error:%f t1:%f t2:%f \n", sumU, sumI, sumIni, sumReal, fit, * error, t1, t2);
     fit=1234.0f;
@@ -102,29 +98,29 @@ double fitnessYError(double * mapaReal, double * mapaSim, int Rows, int Cols, do
 
 }
 
-double errorXor(double * mapaReal, double * mapaSim, int Rows, int Cols, double t1, double t2, double * error)
-{  
+double errorXor(double * mapaReal, double * mapaSim, int Rows, int Cols, double t1, double t2, double * error) {
     int Cells = Rows * Cols, cell;
     int sumI=0, sumU=0, sumIni=0;
     float sumReal=0, sumXOR=0;
     int a,b;
     double fit;
 
-
-    for(cell = 0; cell < Cells ; cell ++)
-    {
+    for (cell = 0; cell < Cells ; cell ++) {
         // paso el mapa real a infinity las celdas no quemadas
-        if(mapaReal[cell] == -1.0)
+        if (mapaReal[cell] == -1.0) {
             mapaReal[cell]=INFINITY;
+        }
 
-        if(mapaSim[cell] == -1.0)
+        if (mapaSim[cell] == -1.0) {
             mapaSim[cell]=INFINITY;
+        }
 
         a = mapaSim[cell] <= t2 ? 1 : 0;
         b = mapaReal[cell] <= t2 ? 1 : 0;
 
-        if ( a^b )
+        if ( a^b ) {
             sumXOR++;
+        }
 
         sumIni += mapaReal[cell] <= t1 ? 1 : 0;
         sumReal += mapaReal[cell] <= t2 ? 1: 0;
@@ -132,27 +128,9 @@ double errorXor(double * mapaReal, double * mapaSim, int Rows, int Cols, double 
         sumI += ((a==1) && (b==1)) ? 1 : 0;
         sumU += ((a==1) || (b==1)) ? 1 : 0;
     }
-    //printf("\n>>>> t1:%f\tt2:%f\ta:%d\tb:%d\tsumIni:%d\tsumReal:%d\tsumI:%d\tsumU:%d<<<<\n", t1, t2, a, b, sumIni, sumReal, sumI, sumU);
-
-    /******
-       if (sumU != sumIni)
-          fit = ((float)(sumI - sumIni)) / ((float)(sumU - sumIni));
-       else
-          fit = 0.0;
-
-       if (sumReal != sumIni)
-         * error = (((float)(sumU - sumIni)) - ((float)(sumI - sumIni))) / ((float)(sumReal - sumIni));
-       else
-         * error = 99999.9;
-    ******/
-
 
     * error =  (float) (sumXOR / sumReal);
-
-
-    //   printf("sumU= %d sumI= %d sumIni= %d sumReal=%d  fitness:%f error:%f t1:%f t2:%f \n", sumU, sumI, sumIni, sumReal, fit, * error, t1, t2);
 
     return (double)fit;
 
 }
-

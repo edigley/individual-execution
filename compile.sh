@@ -1,0 +1,1 @@
+rm fireSimulator; gcc -g -pg -DNDEBUG fireSimulator.c farsite.c strlib.c dictionary.c population.c fitness.c myutils.c iniparser.c -o fireSimulator -lm; rm-temp-files; ls

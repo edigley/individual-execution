@@ -228,7 +228,7 @@ void runIndividual(char * configurationFile, INDVTYPE_FARSITE individual) {
     printf("%s - INFO: FireSimulator.runIndividual -> Gonna run farsite for individual:\n", getCurrentTime());
     printf("%s - INFO: FireSimulator.runIndividual -> %s\n", getCurrentTime(), "gen ind 1h 10h 100h herb 1000h ws wd th hh adj...");
     printf("%s - INFO: FireSimulator.runIndividual -> %s\n", getCurrentTime(), individualAsString);
-    runSimFarsite(individual, "FARSITE", &adjustmentError, individual.generation, atmPath, configurationFile, 99, 1, "/tmp/", 199, 7, 2, 1, 1, 24, 86400);//61);//300);//3600);
+    runFarsite(individual, &adjustmentError, configurationFile, 86400);//61);//300);//3600);
     printf("%s - INFO: FireSimulator.runIndividual -> Finished for individual (%d,%d).\n", getCurrentTime(), individual.generation, individual.id);
     printf("%s - INFO: FireSimulator.runIndividual -> adjustmentError: (%d,%d): %f\n", getCurrentTime(), individual.generation, individual.id, adjustmentError);
     printf("%s - INFO: FireSimulator.runIndividual -> &adjustmentError: (%d,%d): %f\n", getCurrentTime(), individual.generation, individual.id, &adjustmentError);

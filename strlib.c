@@ -50,16 +50,14 @@
   allocated, it will be modified at each function call (not re-entrant).
  */
 /*--------------------------------------------------------------------------*/
-char * strlwc(char * s)
-{
+char * strlwc(char * s) {
     static char l[ASCIILINESZ+1];
     int i ;
 
     if (s==NULL) return NULL ;
     memset(l, 0, ASCIILINESZ+1);
     i=0 ;
-    while (s[i] && i<ASCIILINESZ)
-    {
+    while (s[i] && i<ASCIILINESZ) {
         l[i] = (char)tolower((int)s[i]);
         i++ ;
     }
@@ -79,16 +77,14 @@ char * strlwc(char * s)
   allocated, it will be modified at each function call (not re-entrant).
  */
 /*--------------------------------------------------------------------------*/
-char * strupc(char * s)
-{
+char * strupc(char * s) {
     static char l[ASCIILINESZ+1];
     int i ;
 
     if (s==NULL) return NULL ;
     memset(l, 0, ASCIILINESZ+1);
     i=0 ;
-    while (s[i] && i<ASCIILINESZ)
-    {
+    while (s[i] && i<ASCIILINESZ) {
         l[i] = (char)toupper((int)s[i]);
         i++ ;
     }
@@ -106,8 +102,7 @@ char * strupc(char * s)
   given string.
  */
 /*--------------------------------------------------------------------------*/
-char * strskp(char * s)
-{
+char * strskp(char * s) {
     char * skip = s;
     if (s==NULL) return NULL ;
     while (isspace((int)*skip) && *skip) skip++;
@@ -128,8 +123,7 @@ char * strskp(char * s)
   (not re-entrant).
  */
 /*--------------------------------------------------------------------------*/
-char * strcrop(char * s)
-{
+char * strcrop(char * s) {
     static char l[ASCIILINESZ+1];
     char * last ;
 
@@ -137,8 +131,7 @@ char * strcrop(char * s)
     memset(l, 0, ASCIILINESZ+1);
     strcpy(l, s);
     last = l + strlen(l);
-    while (last > l)
-    {
+    while (last > l) {
         if (!isspace((int)*(last-1)))
             break ;
         last -- ;
@@ -161,8 +154,7 @@ char * strcrop(char * s)
   (not re-entrant).
  */
 /*--------------------------------------------------------------------------*/
-char * strstrip(char * s)
-{
+char * strstrip(char * s) {
     static char l[ASCIILINESZ+1];
     char * last ;
 
@@ -173,8 +165,7 @@ char * strstrip(char * s)
     memset(l, 0, ASCIILINESZ+1);
     strcpy(l, s);
     last = l + strlen(l);
-    while (last > l)
-    {
+    while (last > l) {
         if (!isspace((int)*(last-1)))
             break ;
         last -- ;
@@ -186,8 +177,7 @@ char * strstrip(char * s)
 
 /* Test code */
 #ifdef TEST
-int main(int argc, char * argv[])
-{
+int main(int argc, char * argv[]) {
     char * str ;
 
     str = "\t\tI'm a lumberkack and I'm OK      " ;

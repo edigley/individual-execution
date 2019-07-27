@@ -4,8 +4,7 @@
 #include <sys/stat.h>
 #include <string.h>
 
-char *str_replace(char *orig, char *rep, char *with)
-{
+char *str_replace(char *orig, char *rep, char *with) {
     char *result; // the return string
     char *ins;    // the next insert point
     char *tmp;    // varies
@@ -18,8 +17,7 @@ char *str_replace(char *orig, char *rep, char *with)
         return NULL;
     if (!rep || !(len_rep = strlen(rep)))
         return NULL;
-    if (!(ins = strstr(orig, rep)))
-    {
+    if (!(ins = strstr(orig, rep))) {
         tmp = malloc(strlen(orig));
         strcpy(tmp,orig);
         return tmp;
@@ -28,8 +26,7 @@ char *str_replace(char *orig, char *rep, char *with)
         with = "";
     len_with = strlen(with);
 
-    for (count = 0; tmp = strstr(ins, rep); ++count)
-    {
+    for (count = 0; tmp = strstr(ins, rep); ++count) {
         ins = tmp + len_rep;
     }
 
@@ -38,8 +35,7 @@ char *str_replace(char *orig, char *rep, char *with)
     if (!result)
         return NULL;
 
-    while (count--)
-    {
+    while (count--) {
         ins = strstr(orig, rep);
         len_front = ins - orig;
         tmp = strncpy(tmp, orig, len_front) + len_front;
@@ -50,8 +46,7 @@ char *str_replace(char *orig, char *rep, char *with)
     return result;
 }
 
-int deleteFilesFromFolder(char *folder, char * extension) //usage deleteFilesFromFolder(folder,["asc,exe,*,..."])
-{
+int deleteFilesFromFolder(char *folder, char * extension) {//usage deleteFilesFromFolder(folder,["asc,exe,*,..."])
     char syscall[200];
     sprintf(syscall,"rm %s*.%s",folder,extension);
 
@@ -60,14 +55,12 @@ int deleteFilesFromFolder(char *folder, char * extension) //usage deleteFilesFro
     return err_syscall;
 }
 
-int createFolder(char * folder)
-{
+int createFolder(char * folder) {
     mkdir(folder, S_IRWXU | S_IRWXG | S_IRWXO);
     return 0;
 }
 
-int createLinkToFile(char *filename, char *filepath, char *folder)
-{
+int createLinkToFile(char *filename, char *filepath, char *folder) {
     char syscall[200];
     //printf("ELEVFILENAME: %s\n",filepath);
     sprintf(syscall,"ln %s%s %s%s",filepath,filename,folder,filename);
@@ -77,8 +70,7 @@ int createLinkToFile(char *filename, char *filepath, char *folder)
     return err_syscall;
 }
 
-int setEnvironmentVariable(char * var_name, char * var_value)
-{
+int setEnvironmentVariable(char * var_name, char * var_value) {
     char syscall[200];
     sprintf(syscall,"%s=%s",var_name, var_value);
 
